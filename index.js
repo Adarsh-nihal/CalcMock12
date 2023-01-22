@@ -13,7 +13,7 @@ app.use(cors({
 }))
 
 app.post("/register",async(req,res)=>{
-    const {email,password,name}=req.body;
+    const {name,email,password}=req.body;
     const userPresent=await UserModel.findOne({email})
     if(userPresent?.email){
         res.send({"msg":"already exist"})
