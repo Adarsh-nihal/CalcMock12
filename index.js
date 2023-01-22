@@ -13,7 +13,7 @@ app.use(cors({
 }))
 
 app.post("/register",async(req,res)=>{
-    const {email,password}=req.body;
+    const {email,password,name}=req.body;
     const userPresent=await UserModel.findOne({email})
     if(userPresent?.email){
         res.send({"msg":"already exist"})
@@ -21,7 +21,7 @@ app.post("/register",async(req,res)=>{
 else{
     try{
         bcrypt.hash(password,3,async function(err,hash){
-            const user=new UserModel({email,password:hash})
+            const user=new UserModel({name,email,password:hash})
             await user.save()
             res.send({"msg":"sign up successfull"})
         })
